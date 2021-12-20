@@ -1,0 +1,107 @@
+import React, { Component } from 'react'
+import {setCookie} from '../Connection/setCookie.js'
+import {sendRequest} from '../Connection/sendRequest.js'
+
+var parent
+export default class RegistrationForm extends Component {
+    constructor(props){
+        super(props)
+        parent = props.parent
+    }
+    render() {
+        return (
+            <div className="'mb-3 LoginForm">
+                <div className="bg-primary text-white card-header LoginFormName">
+                    <h1>Регистрация</h1>
+                </div>
+                <div className="LoginFormForm">
+                    <div className='authorizationForm'>
+                        <input className='form-control userInput' id="login" placeholder="Введите логин"></input>
+                        <input className='form-control userInput' type="password" id="password" placeholder="Введите пароль"></input>
+                        <input className='form-control userInput' type="password" id="repeatPassword" placeholder = "Повторите пароль"></input>
+                        <button className='formButton' onClick={confirmRegistration}>Зарегистрироваться</button>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+}
+
+const token = '3878ea14a5bf6b86ae22e12a360d981155d3e657'
+
+function confirmRegistration(){
+
+    const login = document.getElementById("login")
+    const password = document.getElementById("password")
+    const repeatPassword = document.getElementById("repeatPassword")
+    
+    if(login.value.length === 0 || password.value.length === 0 || repeatPassword.value.length === 0){
+        alert("Заполните все поля!")
+        login.value = ''
+        password.value = ''
+        repeatPassword.value = ''
+    }
+    else{
+        setCookie('token', token)
+        if(checkPassword()){
+            checkLogin(login.value, password.value)
+        .then( value => {
+            const login = document.getElementById("login")
+            const password = document.getElementById("password")
+            setCookie('isLogined', 'true')
+            getToken(login.value, password.value)
+            .then(token =>{
+                setCookie('token', token.token)
+                parent.setState({logined: true})
+            })
+        })
+        .catch( () => {
+            alert("Пользователь уже существует!")
+            login.value = ''
+            password.value = ''
+            repeatPassword.value = ''
+        })
+        }
+    }
+}
+
+export function getToken(_login, _password){
+    return new Promise((resolve, reject) => {
+        sendRequest('POST', 'https://n1zx1.pythonanywhere.com/api/token', {
+            'username' : document.getElementById("login").value,
+            'password' : document.getElementById("password").value
+        })
+        .then(good => resolve(good))
+        .catch(err => reject(err))
+    })
+}
+
+function checkLogin(_login, _password){
+    return new Promise((resolve, reject) => {
+        sendRequest('POST', 'https://n1zx1.pythonanywhere.com/api/users/', {
+            'username' : document.getElementById("login").value,
+            'password' : document.getElementById("password").value
+        })
+        .then(good => resolve(good))
+        .catch(err => reject(err))
+    })
+}
+
+
+function checkPassword(){
+    if(document.getElementById("password").value.length < 4){
+        alert("Пароль должен содержать 4 и более символов")
+        document.getElementById("password").value = ''
+        document.getElementById("repeatPassword").value = ''
+        return false
+    }
+    else{
+        if(document.getElementById("password").value !== document.getElementById("repeatPassword").value){
+            alert("Пароли не совпадают!")
+            document.getElementById("password").value = ''
+            document.getElementById("repeatPassword").value = ''
+            return false
+        }
+        return true
+    }
+}

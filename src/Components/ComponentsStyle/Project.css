@@ -1,0 +1,81 @@
+.projectWrap{
+    margin-top: 50px;
+
+    display: flex;
+    flex-direction: column;
+
+    margin: 50px auto;
+    width: 95%;
+    max-width: 900px;
+
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+#swalInput{
+    width: 90%;
+}
+
+.swal p{
+    margin: 0;
+    margin-top: 10px;
+}
+
+.TitleButtons i{
+    color: white;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.AddNewTask{
+    padding: 5px;
+}
+
+.AddNewTask input{
+    margin-right: 10px;
+    padding: 0 5px;
+    width: calc(75% - 20px);
+    outline: none;
+    border: none;
+    border-bottom: 2px solid #000000;
+}
+.AdditionalProps{
+    margin-left: 1%;
+    cursor: pointer;
+    transition: .5s;
+}
+
+.AdditionalProps:hover{
+    transform: scale(1.1);
+}
+.AddNewTask button{
+    width: 20%;
+    background: none;
+    border: 2px solid hsl(0, 0%, 0%);
+    border-radius: 10px;
+    outline: none !important;
+    transition: .5s;
+}
+
+.AddNewTask button:hover{
+    color: white;
+    background: #8f969b;
+}
+
+.ProjectTitle{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.TitleButtons{
+    margin-left: auto;
+}
+
+.ProjectTasks{
+    padding: 0 10px;
+}
