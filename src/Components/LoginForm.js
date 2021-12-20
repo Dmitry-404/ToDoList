@@ -11,7 +11,7 @@ export default class LoginForm extends Component {
     render() {
         return (
             <div className="mb-3 LoginForm">
-                <div className="bg-primary text-white card-header LoginFormName">
+                <div className="bg-warning text-white card-header LoginFormName">
                     <h1>Вход</h1>
                 </div>
                 <div className="LoginFormForm">
