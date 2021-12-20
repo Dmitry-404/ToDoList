@@ -118,7 +118,7 @@ export default class Task extends Component {
             return (
                 <div className="Task">
                     <div className="TaskWrap">
-                        <div className="TaskText">
+                        <div className="TaskText text-primary">
                             <p className="doneStatus">Done</p>
                             <p>{this.Text}</p>
                         </div>
@@ -137,7 +137,7 @@ export default class Task extends Component {
             return (
                 <div className="Task">
                     <div className="TaskWrap">
-                        <div className="TaskText">
+                        <div className="TaskText text-primary">
                             <input type="checkbox" onClick={this.isDoneFun}></input>
                             <p>{this.Text}</p> 
                         </div>
